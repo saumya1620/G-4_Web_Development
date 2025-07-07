@@ -1,0 +1,24 @@
+#grandparent
+{
+    border : 1px dashed red;
+    height: 400px ;
+    margin: 10px;
+    background: rgb(255, 210, 210); ;
+
+}
+#parent
+{
+    border: 1px solid black;
+    padding : 3px;
+    height: 300px;
+    margin: 20px;
+    background: rgb(198, 255, 198);
+}
+#child
+{
+    border : 1px solid green;
+    padding: 3px;
+    height: 200px;
+    margin: 20px;
+    background: rgba(0, 0, 0, 0.253);
+}
