@@ -1,57 +1,89 @@
-// const user = require('../models/userModel')
-// const registerUser = async (req,res) =>
-// {
-//     const {firstname , lastname ,emailId,password} = req.body;
-//     //validation
-//     if(!firstname || !emailId || !password)
-//     {
-//         res.status(400).send({message : "Please add all mandatory fields"});
-//     }
-//     const userExists =  await User.finndOne({emailId});
-//     if(userExists)
-//     {
-//         return res.status(400).json("user already exists");
-//     }
-//     const newuser = await User.create({
-//         firstname,lastname,emailId,password
-//     });
+const User = require("../models/userModel");
+const bcrypt = require("bcrypt");
+const generateToken = require("../utils/generateTokens");
+const validator = require("validator");
 
-//     await newuser.save();
-//     res.status(201).json("user added")
-
-
-// }
-
-// // const loginUser = () =>
-// // {
-
-// // }
-
-// module.export = { registerUser }
-
-
-const User = require('../models/userModel'); // Make sure you have this if you're using User model
 
 const registerUser = async (req, res) => {
-    const { firstname, lastname, emailId, password } = req.body;
+  const { firstName, lastName, emailId, password } = req.body;
 
-    if (!firstname || !emailId || !password) {
-        return res.status(400).send({ message: "Please add all mandatory fields" });
-    }
+  //VALIDATION
 
-    const userExists = await User.findOne({ emailId }); // also typo here: "finndOne" ➜ "findOne"
+  if (!firstName || !emailId || !password) {
+    return res.status(400).send({ message: "Please Add all mandatory fields" });
+  }
+
+  if(!validator.isEmail(emailId)){
+    return res.status(400).send({ message: "Please Provide Correct Email" });
+  }
+
+  if(!validator.isStrongPassword(password)){
+    return res.status(400).send({ message: "Please Provide Strong Password" });
+  }
+
+
+
+  try {
+    //Check the user existing already in db or not
+    const userExists = await User.findOne({ emailId });
     if (userExists) {
-        return res.status(400).json("User already exists");
+      return res.status(400).json({ message: "Already Exist" });
     }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
-        firstname,
-        lastname,
-        emailId,
-        password
+      firstName,
+      lastName,
+      emailId,
+      password: hashedPassword,
     });
 
-    res.status(201).json("User added");
+    await newUser.save();
+    const token = generateToken(newUser);
+
+    return res.status(201).json({
+      message: "USER ADDED SUCCESSFULLY",
+      token,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      err: err.message,
+    });
+  }
 };
 
-module.exports = { registerUser }; // ✅ Corrected
+const loginUser = async (req, res) => {
+  const { emailId, password } = req.body;
+
+  //VALIDATION
+
+  if (!emailId || !password) {
+    return res.status(400).json({ message: "ADD ALL DETAILS" });
+  }
+
+  try{
+    const userExists = await User.findOne({ emailId });
+  console.log(userExists);
+
+  if (!userExists) {
+    return res.status(400).json({ message: "No user Found" });
+  }
+
+  const isValid = await bcrypt.compare(password, userExists.password);
+
+  if (!isValid) {
+    return res.status(400).json({ message: "Incorrect Password" });
+  }
+
+  const token = generateToken(userExists);
+
+  return res.status(200).json({ message: "LoggedIn", token });
+  }catch(err){
+    return res.status(500).json({
+      err: err.message,
+    });
+  }
+};
+
+module.exports = { registerUser, loginUser };
