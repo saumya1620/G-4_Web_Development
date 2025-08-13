@@ -28,7 +28,7 @@ const ProfileSchema = new Schema({
         type : String , 
         required : true
     },
-    codingPlatorms :{
+    codingPlatforms :{
         type : String , 
         required : true
     },

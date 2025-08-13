@@ -6,9 +6,6 @@ const validator = require("validator");
 
 const registerUser = async (req, res) => {
   const { firstName, lastName, emailId, password } = req.body;
-
-  //VALIDATION
-
   if (!firstName || !emailId || !password) {
     return res.status(400).send({ message: "Please Add all mandatory fields" });
   }
@@ -39,7 +36,7 @@ const registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    await newUser.save();
+    //await newUser.save();
     const token = generateToken(newUser);
 
     return res.status(201).json({
@@ -55,8 +52,6 @@ const registerUser = async (req, res) => {
 
 const loginUser = async (req, res) => {
   const { emailId, password } = req.body;
-
-  //VALIDATION
 
   if (!emailId || !password) {
     return res.status(400).json({ message: "ADD ALL DETAILS" });

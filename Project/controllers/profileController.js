@@ -11,15 +11,15 @@ const getProfile = async(req,res)=>
 
 const createProfile = async(req,res)=>
 {
-    const {imageUrl , summary , skills, workExperience , linkedInUrl , githubUrl , codingPlatform , s, resumeUrl} = req.body;
-    const dataofUser = req.user[0];
+    const {imageUrl , summary , skills, workExperience , linkedInUrl , githubUrl , codingPlatforms , resumeUrl} = req.body;
+    const dataofUser = req.user;
     const {_id} = dataofUser;
     const checkUserId = await profile.findOne({userId : _id});
     if(checkUserId)
     {
         return res.status(400).json({message : "profile already exists"})
     }
-    if(!imageUrl || !summary || !skills || !workExperience || !linkedInUrl || !githubUrl || !codingPlatform || !resumeUrl)
+    if(!imageUrl || !summary || !skills || !workExperience || !linkedInUrl || !githubUrl || !codingPlatforms || !resumeUrl)
     {
         return res.status(400).json({message : "please add all mandatory fields"});
     }
@@ -31,16 +31,16 @@ const createProfile = async(req,res)=>
         workExperience,
         linkedInUrl,
         githubUrl,
-        codingPlatform,
+        codingPlatforms,
         resumeUrl
     })
-    const dat = await newProfile.save();
+    const data = await newProfile.save();
     return res.status(200).json({message : "profile created", data})
 }
 
 const updateProfile = async(req,res) =>
 {
-    const {imageUrl , summary , skills , workExperience , linkedInUrl , githubUrl , codingPlatform , resumeUrl} = req.body;
+    const {imageUrl , summary , skills , workExperience , linkedInUrl , githubUrl , codingPlatforms , resumeUrl} = req.body;
     if(!req.user)
     {
         return res.status(401).json({message : "user not authenticated"});
@@ -56,7 +56,7 @@ const updateProfile = async(req,res) =>
     {
         return res.status(400).json({message : "profile does not exist"});
     }
-    if(!imageUrl || !summary || !skills || !workExperience || !linkedInUrl || !githubUrl || !codingPlatform || !resumeUrl)
+    if(!imageUrl || !summary || !skills || !workExperience || !linkedInUrl || !githubUrl || !codingPlatforms || !resumeUrl)
     {
         return res.status(400).json({message : "please enter all mandatory fields"});
     }
@@ -69,7 +69,7 @@ const updateProfile = async(req,res) =>
             workExperience,
             linkedInUrl,
             githubUrl,
-            codingPlatform,
+            codingPlatforms,
             resumeUrl
         },
         {new : true}

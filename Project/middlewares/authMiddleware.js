@@ -14,15 +14,17 @@ const authmiddleware = async(req,res,next) =>
         return res.status(401).json({message : "token missing"});
     }
     const userData = jwt.verify(token , process.env.SECRET);
-    if(!userData)
+    if(!userData || !userData.userId)
     {
         return res.status(401).json({message : "unauthorized user"});
     }
-    const _id = userData.userId;
-    req.userId = _id;
-    const user =  await User.find({_id});
-    console.log(user);
-    if(user.length === 0) return res.status(401).json({message : "user not found"});
+    // const _id = userData.userId;
+    // req.userId = _id;
+    const user =  await User.findById(userData.userId);
+    // console.log(user);
+    if(!user) return res.status(401).json({message : "user not found"});
+    req.user = user;
+    next();
 
 }
 module.exports = authmiddleware;

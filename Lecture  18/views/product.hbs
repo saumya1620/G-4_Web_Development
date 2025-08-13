@@ -7,6 +7,11 @@
 </head>
 <body>
     <h1>this is product page</h1>
-    <ul class="peoplelist"></ul>
+   <ul class="people_list">
+      {{#each products}}
+        <li>{{this}}</li>
+      {{/each}}
+    </ul>
+    <button> <a href="/addproduct">Add product</a></button>
 </body>
 </html>
