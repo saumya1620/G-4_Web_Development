@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id ="main-container"></div>
+    <script>
+        async function getName()
+        {
+            const response = await fetch("/getname")
+            const data = await response.json()
+            document.getElementById("main-container").innerText = data.name;
+        }
+        function shortPolling()
+        {
+            setInterval(()=>
+        {
+            getName();
+        },5000)
+        }
+        shortPolling();
+    </script>
+</body>
+</html>
