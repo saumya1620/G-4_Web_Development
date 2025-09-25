@@ -1,0 +1,174 @@
+body {
+  margin: 0;
+  font-family: Helvetica;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+.site-header {
+  border-bottom: 1px solid #ccc;
+  justify-content: space-between;
+  padding: .5em 1em;
+  display: flex;
+}
+
+.site-identity h1 {
+  margin: .6em 0;
+  font-size: 1.5em;
+  display: inline-block;
+}
+
+.site-navigation ul, .site-navigation li {
+  margin: 0;
+  padding: 0;
+}
+
+.site-navigation li {
+  margin: 1.4em 1em 1em;
+  display: inline-block;
+}
+
+#header-container {
+  background-color: #ccc;
+}
+
+#body-container {
+  padding: 20px;
+}
+
+#footer-container {
+  color: #fff;
+  background-color: #000;
+}
+
+.container {
+  max-width: 1170px;
+  margin: auto;
+}
+
+.row {
+  flex-wrap: wrap;
+  display: flex;
+}
+
+ul {
+  list-style: none;
+}
+
+.footer {
+  background-color: #24262b;
+  padding: 70px 0;
+}
+
+.footer-col {
+  width: 25%;
+  padding: 0 15px;
+}
+
+.footer-col h4 {
+  color: #fff;
+  text-transform: capitalize;
+  margin-bottom: 35px;
+  font-size: 18px;
+  font-weight: 500;
+  position: relative;
+}
+
+.footer-col h4:before {
+  content: "";
+  box-sizing: border-box;
+  background-color: #e91e63;
+  width: 50px;
+  height: 2px;
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+}
+
+.footer-col ul li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+  text-transform: capitalize;
+  color: #bbb;
+  font-size: 16px;
+  font-weight: 300;
+  text-decoration: none;
+  transition: all .3s;
+  display: block;
+}
+
+.footer-col ul li a:hover {
+  color: #fff;
+  padding-left: 8px;
+}
+
+.footer-col .social-links a {
+  text-align: center;
+  color: #fff;
+  background-color: #fff3;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0 10px 10px 0;
+  line-height: 40px;
+  transition: all .5s;
+  display: inline-block;
+}
+
+.footer-col .social-links a:hover {
+  color: #24262b;
+  background-color: #fff;
+}
+
+@media (width <= 767px) {
+  .footer-col {
+    width: 50%;
+    margin-bottom: 30px;
+  }
+}
+
+@media (width <= 574px) {
+  .footer-col {
+    width: 100%;
+  }
+}
+
+#body-container {
+  gap: 20px;
+  padding: 50px;
+}
+
+#product-container {
+  border: 2px solid red;
+  border-radius: 10px;
+  flex-direction: column;
+  width: 300px;
+  height: 400px;
+  padding: 10px;
+  display: flex;
+}
+
+#img-product {
+  border: 2px solid #00f;
+  width: 280px;
+  height: 200px;
+}
+
+#img-product img {
+  width: 260px;
+  height: 190px;
+}
+
+#product-detail-card {
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  display: flex;
+}
+/*# sourceMappingURL=Lecture23.aa436662.css.map */
